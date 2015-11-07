@@ -11,17 +11,23 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class TestFindLargest
 {
     private List<Integer> decreasingStream,
-                          increasingStream;
+                          increasingStream,
+                          randomStream;
+
+    /**how many integers do we want to find?*/
+    private static final int numLargest = 10;
 
     @Before
     public void setUp()
     {
         decreasingStream = new ArrayList<Integer>();
         increasingStream = new ArrayList<Integer>();
+        randomStream = new ArrayList<Integer>();
 
         final int largeStreamSize = 1000;
         for(int i = largeStreamSize; i > 0; i--)
@@ -29,9 +35,12 @@ public class TestFindLargest
             decreasingStream.add(Integer.valueOf(i));
         }
 
+        Random rand = new Random();
         for(int i = 0; i < largeStreamSize; i++)
         {
             increasingStream.add(Integer.valueOf(i));
+
+            randomStream.add(rand.nextInt());
         }
     }
 
@@ -69,19 +78,42 @@ public class TestFindLargest
         return largestIntArray;
     }
 
+    /**
+     * the worst case is a stream sorted smallest -> largest because we have to constantly replace items in the queue
+     */
     @Test
     public void testWorstCase()
     {
-        //how many integers do we want to find?
-        final int n = 10;
+        testStream(increasingStream);
+    }
 
-        final Collection<Integer> largestIntCollection = FindLargest.processStream(n, increasingStream.iterator());
+    /**
+     * the best case is a stream sorted largest -> smallest because each iteration we just compare 2 Integers and move to the next one
+     */
+    @Test
+    public void testBestCase()
+    {
+        testStream(decreasingStream);
+    }
+
+    @Test
+    public void testRandomStream()
+    {
+        testStream(randomStream);
+    }
+
+    /**
+     * tests if processStream can get numLargest integers out of the passed stream
+     */
+    private static void testStream(List<Integer> stream)
+    {
+        final Collection<Integer> largestIntCollection = FindLargest.processStream(numLargest, stream.iterator());
+        //convert to an array for comparison
         final Integer[] largestIntArray = largestIntCollection.toArray(new Integer[largestIntCollection.size()]);
-
 
         //independently get the largest integers from the stream
         //check these against the output
-        final Integer[] knownLargestInts = largestInts(n, increasingStream);
+        final Integer[] knownLargestInts = largestInts(numLargest, stream);
 
         //sort them to make sure we're comparing them in the correct order
         Arrays.sort(knownLargestInts);
