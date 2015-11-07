@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class FindLargest
 {
-    static Collection<Integer> processStream(int n, Iterator<Integer> it)
+    public static Collection<Integer> processStream(int n, Iterator<Integer> it)
     {
         BoundedPriorityQueue<Integer> queue = new BoundedPriorityQueue<Integer>(n);
 
