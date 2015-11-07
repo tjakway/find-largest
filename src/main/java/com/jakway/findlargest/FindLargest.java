@@ -16,6 +16,8 @@ public class FindLargest
 
         Integer thisItem = null;
 
+        //the BoundedPriorityQueue will check internally whether or not to add
+        //the passed item
         while(it.hasNext())
         {
             thisItem = it.next();
@@ -23,10 +25,5 @@ public class FindLargest
         }
 
         return queue.getCollection();
-    }
-
-    public static void main(String[] args)
-    {
-
     }
 }
