@@ -1,6 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
+//get more info from tests
+test {
+    testLogging {
+        exceptionFormat = 'full'
+        //see https://discuss.gradle.org/t/whats-upcoming-in-gradle-1-1-test-logging/7741
+        events "passed", "skipped", "failed", "standardError", "standardOut"
+    }
+}
 
 repositories {
     mavenCentral()
