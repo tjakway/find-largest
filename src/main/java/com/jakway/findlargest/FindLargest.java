@@ -14,16 +14,13 @@ public class FindLargest
             throw new RuntimeException("iterator is empty!");
         }
 
-        Integer thisItem = it.next();
+        Integer thisItem = null;
 
-        //use a do-while loop in case the stream only has 1 integer
-        do
+        while(it.hasNext())
         {
-            queue.add(thisItem);
-
             thisItem = it.next();
+            queue.add(thisItem);
         }
-        while(it.hasNext());
 
         return queue.getCollection();
     }
