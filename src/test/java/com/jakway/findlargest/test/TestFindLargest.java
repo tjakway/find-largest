@@ -7,6 +7,7 @@ import com.jakway.findlargest.FindLargest;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -49,6 +50,7 @@ public class TestFindLargest
 
         //Collections.sort modifies in-place, copy the passed list to avoid
         //side effects
+        //a shallow copy is OK because Integers are immutable
         List<Integer> sortedList = new ArrayList<Integer>(list);
         Collections.sort(sortedList);
 
@@ -81,6 +83,9 @@ public class TestFindLargest
         //check these against the output
         final Integer[] knownLargestInts = largestInts(n, increasingStream);
 
+        //sort them to make sure we're comparing them in the correct order
+        Arrays.sort(knownLargestInts);
+        Arrays.sort(largestIntArray);
         assertArrayEquals(knownLargestInts, largestIntArray);
     }
 }

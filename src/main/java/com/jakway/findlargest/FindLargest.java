@@ -21,7 +21,7 @@ public class FindLargest
         {
             queue.add(thisItem);
 
-            it.next();
+            thisItem = it.next();
         }
         while(it.hasNext());
 

@@ -26,12 +26,22 @@ public class BoundedPriorityQueue<T extends Comparable<T>>
     public void add(T item)
     {
         T smallest = queue.peek();
+        
+        //if the queue is empty, add the item
         if(smallest == null)
         {
+        	checkInvariants();
             queue.add(item);
         }
+        //don't compare items until we've hit the point where we need
+        //to remove an item to insert one
+        else if(queue.size() < limit_size)
+        {
+        	checkInvariants();
+        	queue.add(item);
+        }
         //compareTo returns >0 if item is larger than smallest
-        else if(smallest.compareTo(item) > 0)
+        else if(smallest.compareTo(item) < 0)
         {
             //adding the item to the PriorityQueue will reorder it so the now smallest item is at the head
             queue.add(item);
