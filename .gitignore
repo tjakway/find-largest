@@ -16,3 +16,12 @@ hs_err_pid*
 
 #ignore vim swap files
 *.swp
+
+#ignore gradle build folders
+/bin/
+/build/
+
+#ignore generated eclipse project files
+.classpath
+.project
+.settings/
