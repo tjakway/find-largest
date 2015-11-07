@@ -53,9 +53,15 @@ public class TestFindLargest
         Collections.sort(sortedList);
 
         Integer[] largestIntArray = new Integer[n];
-        for(int i = sortedList.size()-1; i >= n; i--)
+        int arrayPos = 0;
+        //loop backwards through the list (it's sorted smallest -> largest) and break when we've collected n integers
+        for(int i = sortedList.size()-1; ; i--)
         {
-            largestIntArray[i] = sortedList.get(n);
+            largestIntArray[arrayPos] = sortedList.get(i);
+            arrayPos++;
+
+            if(arrayPos >= n)
+                break;
         }
 
         return largestIntArray;
